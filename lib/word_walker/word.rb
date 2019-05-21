@@ -12,10 +12,11 @@ module WordWalker
     end
   protected
     def parse_letters
-      @word.split("").map do |letter|
+      @word.split("").each_with_index.map do |letter, index|
         {
           letter: letter,
           word: @word,
+          index: index,
           id: @id
         }
       end

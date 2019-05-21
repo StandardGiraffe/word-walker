@@ -11,6 +11,9 @@ module WordWalker
       [-1, 1]
     ]
 
+    attr_accessor :score
+    attr_reader :field
+
     def initialize(x_min: 0, y_min: 0, x_max: 1, y_max: 1)
       @x_min = x_min.to_int
       @y_min = y_min.to_int
@@ -19,6 +22,8 @@ module WordWalker
 
       @stylus = [ @x_min, @y_min ]
       @letter_count = 0
+
+      @score = nil
 
       populate_field
     end
@@ -33,7 +38,7 @@ module WordWalker
     end
 
     def print_field
-      puts "[ #{@x_min}, #{@y_min} ] => [ #{@x_max}, #{@y_max} ]\n\n"
+      puts "[ #{@x_min}, #{@y_min} ] => [ #{@x_max}, #{@y_max} ]"
       (@y_min..@y_max).each do |y|
         (@x_min..@x_max).each do |x|
           print @field[[ x, y ]].value + " "
@@ -84,8 +89,7 @@ module WordWalker
       end
 
       if candidates.count == 0
-        self.print_field
-        raise "Ran out of spaces!  Game over!"
+        raise WordWalker::OutOfRoomError.new(@field)
       end
 
       if candidates.reject { |c| c[:score] == 1 }.count == 0
@@ -101,7 +105,7 @@ module WordWalker
         1
       when !@field[coords].valid?(letter)
         0
-      when @field[coords].last_id == letter[:id] - 1
+      when ((@field[coords].ids.last == letter[:id] - 1) && (letter[:index] == 0))
         0
       else
         2

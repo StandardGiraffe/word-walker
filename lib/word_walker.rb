@@ -5,6 +5,11 @@ require "word_walker/grid"
 require "word_walker/point"
 
 module WordWalker
-  class Error < StandardError; end
-  # Your code goes here...
+  class OutOfRoomError < StandardError
+    attr_reader :field
+
+    def initialize(field)
+      @field = field
+    end
+  end
 end

@@ -23,7 +23,7 @@ module WordWalker
       words.split.map do |word|
         id += 1
 
-        Word.new(word, id)
+        Word.new(word.gsub(/\d|\W/, ""), id)
       end
     end
   end

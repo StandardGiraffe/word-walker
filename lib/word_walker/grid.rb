@@ -33,7 +33,7 @@ module WordWalker
     end
 
     def print_field
-      puts "[ #{@x_min}, #{@y_min} ] => [ #{@x_max}, #{@y_max} ]"
+      puts "[ #{@x_min}, #{@y_min} ] => [ #{@x_max}, #{@y_max} ]\n\n"
       (@y_min..@y_max).each do |y|
         (@x_min..@x_max).each do |x|
           print @field[[ x, y ]].value + " "

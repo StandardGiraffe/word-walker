@@ -6,7 +6,7 @@ This was a hobby project to see if I could build a program that could generate s
 
 ## Installation
 
-At the moment, probubbly best to just clone this repository and use the included console.  (See below.)
+At the moment, probubbly best to just clone this repository and use the included console.
 
 ```bash
 $ git clone https://github.com/StandardGiraffe/word-walker.git

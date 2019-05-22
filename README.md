@@ -2,6 +2,8 @@
 
 WordWalker takes a text passage and creates a field of letters in which the text describes a meandering path, boggle-style.
 
+![Boggle!](https://www.wikihow.com/images/thumb/b/b4/Play-Boggle-Step-19.jpg/aid930445-v4-728px-Play-Boggle-Step-19.jpg)
+
 This was a hobby project to see if I could build a program that could generate such fields from an arbitrary block of text.
 
 ## Installation

@@ -6,26 +6,18 @@ This was a hobby project to see if I could build a program that could generate s
 
 ## Installation
 
-Add this line to your application's Gemfile:
+At the moment, probubbly best to just clone this repository and use the included console.  (See below.)
 
-```ruby
-gem 'word_walker'
+```bash
+$ git clone https://github.com/StandardGiraffe/word-walker.git
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install word_walker
 
 ## Usage
 
 Currently, the gem is limited to printing diagnostic output for demonstration purposes.  If you'd like to try it from the command line, enter the custom terminal:
 
 ```bash
-./ $ bin/console
+$ bin/console
 ```
 
 ... and then run something like the following:

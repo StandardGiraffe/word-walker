@@ -23,7 +23,7 @@ module WordWalker
           grid.score
         end.each do |grid|
           grid.print_field
-          puts "Score: #{grid.score}\n\n"
+          puts "Score: #{grid.score.round(2)}\n\n"
         end
 
         puts "\n##### WORST QUALIFYING GRID #####\n\n"
@@ -31,9 +31,14 @@ module WordWalker
           grid.score
         end
         loser.print_field
-        puts "Score: #{loser.score}\n\n"
-        puts "\n##### STATISTICS #####\n\n"
-        puts "Failure Rate: #{@failures.count.to_f / @grids.count.to_f * 100}%"
+        puts "Score: #{loser.score.round(2)}\n\n"
+      end
+
+      puts "\n##### STATISTICS #####\n\n"
+      puts "Failure Rate: #{(@failures.count.to_f / @grids.count.to_f * 100).round(2)}%"
+      puts "Average completion rate of failed grids: #{average_completion_of_failures.round(2)}%"
+      if @failures.count == @passes
+        puts "The most successful failure reached #{best_failure.percent_complete.round(2)}% completion."
       end
     end
   protected
@@ -48,9 +53,11 @@ module WordWalker
         end
 
         grid.score = score_grid(grid)
+        grid.percent_complete = grid.letter_count.to_f / @letter_count.to_f * 100
         @grids << grid
       rescue OutOfRoomError
         grid.score = -1
+        grid.percent_complete = grid.letter_count.to_f / @letter_count.to_f * 100
         @grids << grid
       end
     end
@@ -70,6 +77,16 @@ module WordWalker
       return -1 if grid.score
 
       @letter_count.to_f / grid.field.count.to_f * 100
+    end
+
+    def average_completion_of_failures
+      @failures.map do |failure|
+        failure.percent_complete
+      end.reduce(:+).to_f / @failures.size
+    end
+
+    def best_failure
+      @failures.max_by { |f| f.percent_complete }
     end
   end
 end

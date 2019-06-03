@@ -12,7 +12,9 @@ module WordWalker
     ]
 
     attr_accessor :score
+    attr_accessor :percent_complete
     attr_reader :field
+    attr_reader :letter_count
 
     def initialize(x_min: 0, y_min: 0, x_max: 1, y_max: 1)
       @x_min = x_min.to_int

@@ -6,7 +6,7 @@ WordWalker takes a text passage and creates a field of letters in which the text
 
 ## Installation
 
-At the moment, probubbly best to just clone this repository and use the included console.
+At the moment, it's probably best to just clone this repository and use the included console to fool around:
 
 ```bash
 $ git clone https://github.com/StandardGiraffe/word-walker.git
@@ -24,18 +24,24 @@ $ bin/console
 
 ```ruby
 passage = <<-PASSAGE
-Shall I compare thee to a summer's day? 
+Shall I compare thee to a summer's day?
 Thou art more lovely and more temperate:
 Rough winds do shake the darling buds of May,
 And summer's lease hath all too short a date:
 PASSAGE
 
-grids = WordWalker::Sequence.new(passage, passes: 5000)
+# Initialize a project and immediately build the grids:
+project = WordWalker.build!(passage, passes: 1000)
 
-grids.print_results(2)
+# Alternatively, initialize the projects and build the grids later:
+project = WordWalker.read(passage)
+project.build_grids(1000)
+
+# When ready, print the report (specify the number of top candidates to display, default 3):
+passage.results(2)
 ```
 
-The diagnostic output will display the top candidates (three by default), the top loser, and the failure rate of the builds (ie., how many builds worked their ways into dead-ends):
+This will display the top candidates, the top loser, the failure rate of the builds (ie., how many builds worked their ways into dead-ends), and the average completion rate of the failures before they halted:
 
 ```text
 ##### RESULTS #####
@@ -56,7 +62,7 @@ H L E O D A Y T H O
 G Y V M T R A U O R
 U A N D M O R E T D
 O R E T A R E P M A
-Score: 111.66666666666667
+Score: 111.67
 
 [ -9, -5 ] => [ 4, 3 ]
 . H A S A E L S R E M U S D
@@ -68,7 +74,7 @@ O S D M S H E A O S L R P S
 R H D S A O T P M H A A E D
 T A K N I W H G U O R E T U
 D E T H E D A R L I N G B .
-Score: 106.34920634920636
+Score: 106.36
 
 
 ##### WORST QUALIFYING GRID #####
@@ -91,36 +97,20 @@ T R E O M D N A Y D I . . . .
 . . T H O U E H E A H . . . .
 . . . . A R T M R K T . . . .
 . . . . . . . . O E . . . . .
-Score: 52.54901960784314
+Score: 52.14
 
 
 ##### STATISTICS #####
 
 Failure Rate: 94.84%
-
+Average completion rate of failed grids: 32.67%
 ```
 
 ### Future development goals
 
+- Accept strings or text files for the seed passage
 - Output grid properties to JSON or YAML
 - Read from a JSON or YAML file to rebuild the grid
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/StandardGiraffe/word_walker. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-... That said, I'm expecting to work on this thing all by myself for now.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the WordWalker project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/StandardGiraffe/word_walker/blob/master/CODE_OF_CONDUCT.md).
+- Accept branch points in the provided passage for multiple story paths
+- Accept different pathfinding and scoring modules to prioritize different build shapes and strategies
+- Save to PDF for classroom printing?

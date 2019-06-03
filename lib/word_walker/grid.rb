@@ -118,9 +118,6 @@ module WordWalker
       ADJACENTS.map do |modifier|
         [ @stylus[0] + modifier[0], @stylus[1] + modifier[1] ]
       end
-
     end
-  rescue StandardError
-    self.print_field
   end
 end

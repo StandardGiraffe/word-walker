@@ -7,7 +7,8 @@ module WordWalker
         @failures = @grids.select { |g| g.score == -1 }
         grids = @grids - @failures
 
-        system "clear" or system "cls"
+        clear_screen
+
         puts "\n##### RESULTS #####\n\n"
 
         if grids.count == 0
@@ -59,6 +60,19 @@ module WordWalker
       else
         0.0
       end
+    end
+
+    def print_standby_message (passes, current_pass)
+      clear_screen
+
+      puts "################ BUILD IN PROGRESS ################\n\n"
+      puts "Attempting to build your grids.  Please stand by..."
+      puts "Completed: #{current_pass} / #{passes}\n\n"
+      puts "###################################################"
+    end
+
+    def clear_screen
+      system "clear" or system "cls"
     end
 
     extend self

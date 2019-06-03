@@ -20,7 +20,6 @@ module WordWalker
   end
 end
 
-
 require_relative "./word_walker/report"
 
 require_relative "./word_walker/version"

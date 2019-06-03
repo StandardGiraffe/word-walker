@@ -4,8 +4,6 @@ WordWalker takes a text passage and creates a field of letters in which the text
 
 ![Boggle!](https://www.wikihow.com/images/thumb/b/b4/Play-Boggle-Step-19.jpg/aid930445-v4-728px-Play-Boggle-Step-19.jpg)
 
-This was a hobby project to see if I could build a program that could generate such fields from an arbitrary block of text.
-
 ## Installation
 
 At the moment, probubbly best to just clone this repository and use the included console.
@@ -25,7 +23,12 @@ $ bin/console
 ... and then run something like the following:
 
 ```ruby
-passage = "Shall I compare thee to a summer's day? / Thou art more lovely and more temperate: / Rough winds do shake the darling buds of May, / And summer's lease hath all too short a date:"
+passage = <<-PASSAGE
+Shall I compare thee to a summer's day? 
+Thou art more lovely and more temperate:
+Rough winds do shake the darling buds of May,
+And summer's lease hath all too short a date:
+PASSAGE
 
 grids = WordWalker::Sequence.new(passage, passes: 5000)
 

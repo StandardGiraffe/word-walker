@@ -48,5 +48,3 @@ module WordWalker
     end
   end
 end
-
-# require_relative "./report"

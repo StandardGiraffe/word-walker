@@ -1,8 +1,3 @@
-require "word_walker/version"
-require "word_walker/sequence"
-require "word_walker/word"
-require "word_walker/grid"
-require "word_walker/point"
 
 module WordWalker
   class OutOfRoomError < StandardError
@@ -13,3 +8,12 @@ module WordWalker
     end
   end
 end
+
+
+require_relative "./word_walker/report"
+
+require_relative "./word_walker/version"
+require_relative "./word_walker/sequence"
+require_relative "./word_walker/word"
+require_relative "./word_walker/grid"
+require_relative "./word_walker/point"

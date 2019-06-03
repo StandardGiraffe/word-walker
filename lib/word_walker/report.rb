@@ -46,7 +46,7 @@ module WordWalker
     def average_completion_of_failures
       @failures.map do |failure|
         failure.percent_complete
-      end.reduce(:+).to_f / @failures.size
+      end.reduce(:+).to_f / @failures.count
     end
 
     def best_failure
@@ -54,7 +54,11 @@ module WordWalker
     end
 
     def failure_rate
-      @failure_rate ||= (@failures.count.to_f / @grids.count.to_f * 100).round(2)
+      @failure_rate ||= unless @failures.count == 0
+        (@failures.count.to_f / @grids.count.to_f * 100).round(2)
+      else
+        0.0
+      end
     end
 
     extend self

@@ -19,11 +19,11 @@ module WordWalker
           end
 
           grid.score = score_grid(grid)
-          grid.percent_complete = grid.letter_count.to_f / @letter_count.to_f * 100
+          grid.percent_complete = grid.letter_count.to_f / @sequence.letter_count.to_f * 100
           @grids << grid
         rescue OutOfRoomError
           grid.score = -1
-          grid.percent_complete = grid.letter_count.to_f / @letter_count.to_f * 100
+          grid.percent_complete = grid.letter_count.to_f / @sequence.letter_count.to_f * 100
           @grids << grid
         end
       end

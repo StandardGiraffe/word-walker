@@ -26,5 +26,13 @@ module WordWalker
     def coords
       [ @x, @y ]
     end
+
+    def to_h
+      {
+        coords: coords,
+        ids: @ids,
+        value: @value
+      }
+    end
   end
 end

@@ -1,17 +1,20 @@
 module WordWalker
   class Project
     include WordWalker::Report
+    include WordWalker::FileHelper
+
+    attr_reader :grids
 
     def initialize(passage)
       @sequence = Sequence.new(passage)
       @grids = Array.new
     end
 
-    def build_grids(passes)
+    def build_grids(passes = 100)
       passes.times do |pass|
         print_standby_message(passes, pass)
 
-        grid = Grid.new
+        grid = Grid.new(sequence: @sequence)
 
         @sequence.words.each do |word|
           word.letters.each do |letter|
@@ -28,16 +31,7 @@ module WordWalker
         @grids << grid
       end
     end
-
-    # def print_standby_message (passes, current_pass)
-    #   system "clear" or system "cls"
-
-    #   puts "############### BUILD IN PROGRESS ###############\n\n"
-    #   puts "Attempting to build your grids.  Please stand by..."
-    #   puts "Completed: #{current_pass} / #{passes}\n\n"
-    #   puts "#################################################"
-    # end
-
+  protected
     def score_grid(grid)
       return -1 if grid.score
 

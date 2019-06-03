@@ -15,8 +15,11 @@ module WordWalker
     attr_accessor :percent_complete
     attr_reader :field
     attr_reader :letter_count
+    attr_reader :sequence
 
-    def initialize(x_min: 0, y_min: 0, x_max: 1, y_max: 1)
+    def initialize(sequence:, x_min: 0, y_min: 0, x_max: 1, y_max: 1)
+      @sequence = sequence
+
       @x_min = x_min.to_int
       @y_min = y_min.to_int
       @x_max = x_max.to_int
@@ -47,6 +50,13 @@ module WordWalker
         end
         puts "\n"
       end
+    end
+
+    def to_h
+      {
+        passage: @sequence.passage,
+        field: @field.map { |k, v| v.to_h }
+      }
     end
   protected
     def populate_field
@@ -80,8 +90,7 @@ module WordWalker
     def best_adjacent_point(letter)
       return [ @x_min, @y_min ] if @letter_count == 0
 
-      candidates = adjacent_points.shuffle.tap do |c|
-      end.map do |coords|
+      candidates = adjacent_points.shuffle.map do |coords|
         {
           score: evaluate(letter, coords),
           coords: coords

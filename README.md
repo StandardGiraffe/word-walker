@@ -14,6 +14,8 @@ $ git clone https://github.com/StandardGiraffe/word-walker.git
 
 ## Usage
 
+### Initialization
+
 Currently, the gem is limited to printing diagnostic output for demonstration purposes.  If you'd like to try it from the command line, enter the custom terminal:
 
 ```bash
@@ -36,7 +38,11 @@ project = WordWalker.build!(passage, passes: 1000)
 # Alternatively, initialize the projects and build the grids later:
 project = WordWalker.read(passage)
 project.build_grids(1000)
+```
 
+### Reporting Results
+
+```ruby
 # When ready, print the report (specify the number of top candidates to display, default 3):
 passage.results(2)
 ```
@@ -106,11 +112,27 @@ Failure Rate: 94.84%
 Average completion rate of failed grids: 32.67%
 ```
 
-### Future development goals
+### Exporing Grids
+
+Completed grids can be exported to JSON files for re-importing later (to be implemented).
+
+```ruby
+project.export  #=> ./output/word_walker_output.json
+
+project.export(file_name: "my_grid.json") #=> ./output/my_grid.json
+
+# #export can also take a grid argument, which can be :best, :worst, or a specific Grid instance.
+project.export(grid: :best, file_name: "my_best_grid.json")
+project.export(grid: :worst, file_name: "yucky.json")
+
+this_grid = project.grids[57]
+project.export(grid: this_grid, file_name: "just_right.json")
+```
+
+## Future development goals
 
 - Accept strings or text files for the seed passage
-- Output grid properties to JSON or YAML
-- Read from a JSON or YAML file to rebuild the grid
+- Read from a JSON file to rebuild the grid
 - Accept branch points in the provided passage for multiple story paths
 - Accept different pathfinding and scoring modules to prioritize different build shapes and strategies
 - Save to PDF for classroom printing?
